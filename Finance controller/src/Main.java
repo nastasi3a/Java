@@ -26,14 +26,9 @@ class Main {
         currencyRate.put("EUR", 41.7502);
         currencyRate.put("USD", 37.4406);
         currencyRate.put("PLN", 9.3133);
-        currencyRate.put("GBP", 48.4419);
-        currencyRate.put("HUF", 0.1091);
 
         System.out.println("How much money in UAH do you have left before payday?");
         double moneyBeforeSalary = scanner.nextDouble();
-
-        System.out.println("How many days left before payday?");
-        int daysBeforeSalary = scanner.nextInt();
 
         boolean isRunning = true;
         while (isRunning) {
@@ -52,9 +47,11 @@ class Main {
                     System.out.println("Your savings: " + moneyBeforeSalary + " UAH");
                     System.out.println("What currency do you want to convert to? Available Options:");
                     counter = 0;
+                    //show available currencies
                     for (String currencies : currencyRate.keySet())
                         System.out.println( (++counter) + " - " + currencies);
                     int currency = scanner.nextInt();
+
                     counter = 0;
                     for (String currencies : currencyRate.keySet()) {
                         if (++counter == currency) {
@@ -65,6 +62,9 @@ class Main {
                     if (counter==currencyRate.size()) System.out.println("Incorrect number");
                 }
                 case 2 -> {
+                    System.out.println("How many days left before payday?");
+                    int daysBeforeSalary = scanner.nextInt();
+
                     if (moneyBeforeSalary < 1000)
                         System.out.println("Today it is better to eat at home. Save and you'll make it to paycheck!");
                     else if (moneyBeforeSalary < 5000) {
@@ -83,25 +83,29 @@ class Main {
                     double expense = scanner.nextDouble();
                     moneyBeforeSalary -= expense;
                     System.out.println("Choose the category:");
-                    System.out.println("1 - Grocery");
-                    System.out.println("2 - Clothes");
-                    System.out.println("3 - Beauty&Care");
-                    System.out.println("4 - Health");
-                    System.out.println("5 - Else");
+
+                    //show available currencies
+                    counter = 0;
+                    for (String category : expensesByCategories.keySet())
+                        System.out.println( (++counter) + " - " + category);
                     int categoryNum = scanner.nextInt();
-                    if (categoryNum > 0 && categoryNum <= categories.size()) {
-                        String category = categories.get(categoryNum - 1);
-                        ArrayList<Double> exp = expensesByCategories.get(category);
-                        exp.add(expense);
-                        expensesByCategories.put(category, exp);
-                    } else {
+
+                    counter = 0;
+                    for (String category : expensesByCategories.keySet()) {
+                        if (++counter == categoryNum) {
+                            ArrayList<Double> exp = expensesByCategories.get(category);
+                            exp.add(expense);
+                            expensesByCategories.put(category, exp);
+                            break;
+                        }
+                    } if (counter==expensesByCategories.size()) {
                         String category = "Else";
                         ArrayList<Double> exp = expensesByCategories.get(category);
                         exp.add(expense);
                         expensesByCategories.put(category, exp);
                     }
 
-                    System.out.println("Value saved! Your current balance in UAH: " + moneyBeforeSalary);
+                    System.out.println("Spending saved! Your current balance in UAH: " + moneyBeforeSalary);
                     if (moneyBeforeSalary < 400)
                         System.out.println("There is very little left in your account. It's time to start saving!");
                 }
@@ -109,13 +113,15 @@ class Main {
                     for (String i : expensesByCategories.keySet()) {
                         System.out.println(i + ":");
                         for (double j : expensesByCategories.get(i))
-                            System.out.println("    " + j + " UAH spent");
+                            System.out.println("\t" + j + " UAH spent");
                     }
                 }
                 case 5 -> {
                     double maxExpense = 0;
                     String categoryOfMaxExpense = "";
+                    //iterating through shopping categories
                     for (String category : expensesByCategories.keySet())
+                        //iterating through list of expenses in current category
                         for (double expense : expensesByCategories.get(category))
                             if (maxExpense < expense) {
                                 maxExpense = expense;
