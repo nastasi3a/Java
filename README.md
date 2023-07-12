@@ -1,1 +1,1 @@
-In this repository will be some projects written in Java.
+In this repository will be some projects I have written in Java.
