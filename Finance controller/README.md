@@ -1,0 +1,1 @@
+Simple console program to help you control your finances.
