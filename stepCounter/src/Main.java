@@ -10,28 +10,18 @@ public class Main {
             printMenu();
             int command = scanner.nextInt();
             switch (command) {
-                case 1:
-                    System.out.print("Enter first three letters of month(example: Jan): ");
-                    String month = scanner.next();
-                    System.out.print("Enter number of day: ");
-                    int day = scanner.nextInt();
-                    System.out.print("Enter amount of steps: ");
-                    int steps = scanner.nextInt();
-                    user.setStepAmount(month, day, steps);
-                    break;
-                case 2:
-                    break;
-                case 3:
+                case 1 -> //Enter day's step amount
+                        user.setStepAmount();
+                case 2 -> //month statistics
+                        user.showStatistic();
+                case 3 -> { //Change daily steps goal
                     System.out.print("Enter new daily goal: ");
                     int goal = scanner.nextInt();
                     user.setGoal(goal);
-                    break;
-                case 0:
-                    isRunning = false;
-                    break;
-                default:
-                    System.out.println("Sorry, there is no such command yet.");
-                    break;
+                }
+                case 0 -> //Exit
+                        isRunning = false;
+                default -> System.out.println("Sorry, there is no such command yet.");
             }
         }
         scanner.close();
