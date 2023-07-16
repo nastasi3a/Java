@@ -1,0 +1,10 @@
+item;isExpense;quantity;sumOfOne
+balloons;TRUE;457;0.5
+ice cream;FALSE;14773;3
+cookies	FALSE;12554;1.5
+napkins	TRUE;13000;0.3
+wet wipes;TRUE;15000;0.4
+coffee;FALSE;1238;2.5
+tea	FALSE;2547;2
+paper cup;TRUE;4000;0.2
+cup cover;TRUE;2000;0.05
