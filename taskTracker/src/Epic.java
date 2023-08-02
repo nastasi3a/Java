@@ -1,13 +1,21 @@
 import java.util.ArrayList;
 
 public class Epic extends Task {
-    ArrayList<Subtask> subtasks;
+    private ArrayList<Subtask> subtasks;
 
     Epic(String name, String description, int id) {
         super(name, description, id);
     }
 
-    void checkEpicStatus(){
+    ArrayList<Subtask> getSubtasks() {
+        return subtasks;
+    }
+
+    void addTaskToSubtasks(Subtask subtask) {
+        subtasks.add(subtask);
+    }
+
+    void checkEpicStatus() {
         boolean newTaskStatus = true;
         boolean doneTaskStatus = true;
 
@@ -15,14 +23,14 @@ public class Epic extends Task {
             return;
         }
 
-        for (Subtask task :subtasks) {
+        for (Subtask task : subtasks) {
             if (!task.status.equals("NEW")) {
                 newTaskStatus = false;
                 break;
             }
         }
 
-        for (Subtask task :subtasks) {
+        for (Subtask task : subtasks) {
             if (!task.status.equals("DONE")) {
                 doneTaskStatus = false;
                 break;
@@ -34,4 +42,13 @@ public class Epic extends Task {
         else status = "IN_PROGRESS";
 
     }
+
+    @Override
+    public String toString() {
+        String namesOfSubtasks = "";
+        for (Subtask subtask : subtasks) namesOfSubtasks += subtask.name;
+        return "Epic {Name: " + name + ", Description: " + description + ", Status: " + status + ", Id: " + id
+                + ", Subtasks: " + namesOfSubtasks + "}";
+    }
+
 }

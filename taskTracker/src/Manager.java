@@ -1,23 +1,35 @@
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
 public class Manager {
-    int availableId = 0;
-    HashMap<Integer, Task> tasks;
-    HashMap<Integer, Epic> epics;
+    protected int availableId = 0;
+    protected HashMap<Integer, Task> tasks;
+    protected HashMap<Integer, Epic> epics;
 
+    void createTask(String name, String description) {
+        tasks.put(availableId, new Task(name, description, availableId++));
+    }
 
+    void createEpic(String name, String description) {
+        epics.put(availableId, new Epic(name, description, availableId++));
+    }
+
+    void addSubtaskToEpic(int epicId, String name, String description, String epicName) {
+        Epic epic = epics.get(epicId);
+        Subtask subtask = new Subtask(name, description, availableId++, epicName, epicId);
+        epic.addTaskToSubtasks(subtask);
+    }
     void showAllSubtasksInAllEpics() {
         for (Epic epic : epics.values()) {
-            for (Subtask subtask: epic.subtasks) {
+            for (Subtask subtask: epic.getSubtasks()) {
                 System.out.println(subtask);
             }
         }
     }
+
     void removeAllSubtasksFromEpic(int epicId) {
         epics.remove(epicId);
     }
+
     void removeById(int id) {
         epics.remove(id);
         tasks.remove(id);
