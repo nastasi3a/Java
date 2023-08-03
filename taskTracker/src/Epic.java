@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Epic extends Task {
-    private ArrayList<Subtask> subtasks;
+    private ArrayList<Subtask> subtasks = new ArrayList<>();
 
     Epic(String name, String description, int id) {
         super(name, description, id);
@@ -10,8 +10,11 @@ public class Epic extends Task {
     ArrayList<Subtask> getSubtasks() {
         return subtasks;
     }
+    void setSubtasks(ArrayList<Subtask> subtasks) {
+        this.subtasks = subtasks;
+    }
 
-    void addTaskToSubtasks(Subtask subtask) {
+    void addSubtask(Subtask subtask) {
         subtasks.add(subtask);
     }
 
@@ -45,9 +48,9 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        String namesOfSubtasks = "";
-        for (Subtask subtask : subtasks) namesOfSubtasks += subtask.name;
-        return "Epic {Name: " + name + ", Description: " + description + ", Status: " + status + ", Id: " + id
+        StringBuilder namesOfSubtasks = new StringBuilder();
+        for (Subtask subtask : subtasks) namesOfSubtasks.append(subtask.name).append(" ");
+        return "Epic { Name: " + name + ", Description: " + description + ", Status: " + status + ", Id: " + id
                 + ", Subtasks: " + namesOfSubtasks + "}";
     }
 
