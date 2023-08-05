@@ -8,8 +8,13 @@ public class Main {
         manager.addSubtaskToEpic(0, "Subtask 1", "This is first subtask in epic 1", "Epic1");
         manager.addSubtaskToEpic(0, "Subtask 2", "This is second subtask in epic 1", "Epic1");
         manager.addSubtaskToEpic(1, "Subtask 1", "This is first subtask in epic 2", "Epic2");
-        //System.out.println();
+        manager.changeSubtaskStatus(5, "DONE");
         manager.showAllSubtasksInAllEpics();
+        manager.changeSubtaskStatus(6, "IN_PROGRESS");
+        manager.removeById(4);
+        manager.removeEpic(0);
         manager.showAllTasks();
+        manager.showAllSubtasksInAllEpics();
+        manager.getTaskById(3);
     }
 }

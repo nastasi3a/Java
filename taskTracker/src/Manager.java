@@ -3,8 +3,8 @@ import java.util.HashMap;
 
 public class Manager {
     private int availableId;
-    private HashMap<Integer, Task> tasks;
-    private HashMap<Integer, Epic> epics;
+    private final HashMap<Integer, Task> tasks;
+    private final HashMap<Integer, Epic> epics;
 
     Manager() {
         availableId = 0;
@@ -39,38 +39,34 @@ public class Manager {
         }
     }
 
-    void changeSubtaskStatus(int id, String status) {
+    void changeSubtaskStatus(final int id, String status) {
         for (int epicId : epics.keySet()) {
             Epic epic = epics.get(epicId);
             ArrayList<Subtask> subtasks = epic.getSubtasks();
-            for (int i = 0; i < subtasks.size(); i++) {
-                if (subtasks.get(i).getId() == id) {
-                    Subtask subtask = subtasks.get(i);
+            for (Subtask subtask : subtasks) {
+                if (subtask.getId() == id) {
                     subtask.changeTaskStatus(status);
-                    subtasks.remove(i);
-                    subtasks.add(i, subtask);
                 }
             }
         }
     }
 
-    void removeEpic(int epicId) {
+    void removeEpic(final int epicId) {
         epics.remove(epicId);
     }
 
-    void removeById(int id) {
+    void removeById(final int id) {
         epics.remove(id);
         tasks.remove(id);
         for (int epicId: epics.keySet()) {
             Epic epic = epics.get(epicId);
             ArrayList<Subtask> subtasks = epic.getSubtasks();
-            for (Subtask subtask : subtasks) {
-                if (subtask.getId() == id) subtasks.remove(subtask);
-            } epic.setSubtasks(subtasks);
+            subtasks.removeIf(subtask -> subtask.getId() == id);
+            epic.setSubtasks(subtasks);
             epic.checkEpicStatus();
         }
     }
-    void getTaskById(int id) {
+    void getTaskById(final int id) {
         if (tasks.containsKey(id)) System.out.println(tasks.get(id));
         if (epics.containsKey(id)) System.out.println(epics.get(id));
         for (Epic epic: epics.values()) {

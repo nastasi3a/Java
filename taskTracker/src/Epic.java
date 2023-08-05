@@ -27,22 +27,22 @@ public class Epic extends Task {
         }
 
         for (Subtask task : subtasks) {
-            if (!task.status.equals("NEW")) {
+            if (task.status != taskStatuses.NEW) {
                 newTaskStatus = false;
                 break;
             }
         }
 
         for (Subtask task : subtasks) {
-            if (!task.status.equals("DONE")) {
+            if (task.status != taskStatuses.DONE) {
                 doneTaskStatus = false;
                 break;
             }
         }
 
-        if (doneTaskStatus) status = "DONE";
-        else if (newTaskStatus) status = "NEW";
-        else status = "IN_PROGRESS";
+        if (doneTaskStatus) status = taskStatuses.DONE;
+        else if (newTaskStatus) status = taskStatuses.NEW;
+        else status = taskStatuses.IN_PROGRESS;
 
     }
 
