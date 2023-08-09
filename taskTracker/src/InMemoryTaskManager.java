@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InMemoryTaskManager implements TaskManager {
+
+    static final private ArrayList<String> history = new ArrayList<>();
     private int availableId;
     private final HashMap<Integer, Task> tasks;
     private final HashMap<Integer, Epic> epics;
@@ -30,19 +32,40 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void showSubtasksInEpic(int epicId) {
-        Epic epic = epics.get(epicId);
-            for (Subtask subtask : epic.getSubtasks()) {
-                System.out.println(subtask);
-            }
-
+    public void getTask(final int id) {
+        if (tasks.containsKey(id)) {
+            System.out.println(tasks.get(id));
+            history.add(0, "task: " + id);
+            while (history.size()>10) history.remove(10);
+        }
+        else System.out.println("There is no task with id " + id + ".");
     }
 
     @Override
-    public void showTasks() {
-        for (Task task: tasks.values()) {
-            System.out.println(task);
+    public void getSubtask(final int id) {
+        boolean isFound = false;
+        for (Epic epic: epics.values()) {
+            ArrayList<Subtask> subtasks = epic.getSubtasks();
+            for (Subtask subtask : subtasks) {
+                if (subtask.getId() == id) {
+                    System.out.println(subtask);
+                    history.add(0, "subtask: " + id);
+                    while (history.size()>10) history.remove(10);
+                    isFound = true;
+                    break;
+                }
+            } if (isFound) break;
+        } if (!isFound) System.out.println("There is no subtask with id " + id + ".");
+    }
+
+    @Override
+    public void getEpic(final int id) {
+        if (epics.containsKey(id)) {
+            System.out.println(epics.get(id));
+            history.add(0, "epic: " + id);
+            while (history.size()>10) history.remove(10);
         }
+        else System.out.println("There is no epic with id " + id + ".");
     }
 
     @Override
@@ -74,15 +97,8 @@ public class InMemoryTaskManager implements TaskManager {
         }
     }
 
-    @Override
-    public void getTaskById(final int id) {
-        if (tasks.containsKey(id)) System.out.println(tasks.get(id));
-        if (epics.containsKey(id)) System.out.println(epics.get(id));
-        for (Epic epic: epics.values()) {
-            ArrayList<Subtask> subtasks = epic.getSubtasks();
-            for (Subtask subtask : subtasks) {
-                if (subtask.getId() == id) System.out.println(subtask);
-            }
-        }
+    public String history() {
+        return "History: " + history;
     }
+
 }

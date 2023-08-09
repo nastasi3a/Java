@@ -5,9 +5,11 @@ public interface TaskManager {
 
     void createSubtaskInEpic(int epicId, String name, String description, String epicName);
 
-    void showSubtasksInEpic(int epicId);
+    void getTask(final int id);
 
-    void showTasks();
+    void getSubtask(final int id);
+
+    void getEpic(final int id);
 
     void changeSubtaskStatus(int epicId, final int subtaskId, String newStatus);
 
@@ -15,5 +17,6 @@ public interface TaskManager {
 
     void removeById(final int id);
 
-    void getTaskById(final int id);
+    String history();
+
 }
