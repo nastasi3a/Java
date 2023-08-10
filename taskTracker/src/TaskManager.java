@@ -17,6 +17,4 @@ public interface TaskManager {
 
     void removeById(final int id);
 
-    String history();
-
 }
