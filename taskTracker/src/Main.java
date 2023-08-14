@@ -16,7 +16,7 @@ public class Main {
         inMemoryTaskManager.changeSubtaskStatus(0, 5, "DONE");
         inMemoryTaskManager.getEpic(0);
         inMemoryTaskManager.getEpic(1);
-        //System.out.println(inMemoryTaskManager.history());
+        System.out.println(historyManager.getHistory());
         inMemoryTaskManager.changeSubtaskStatus(1, 6, "IN_PROGRESS");
         inMemoryTaskManager.removeById(4);
         inMemoryTaskManager.removeEpic(0);
@@ -24,6 +24,6 @@ public class Main {
         inMemoryTaskManager.getEpic(1);
         inMemoryTaskManager.getEpic(0); //Solved: NullPointerException
         inMemoryTaskManager.getTask(3);
-        //System.out.println(inMemoryTaskManager.history());
+        System.out.println(historyManager.getHistory());
     }
 }

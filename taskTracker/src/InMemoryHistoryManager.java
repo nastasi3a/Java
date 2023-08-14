@@ -1,24 +1,33 @@
+import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    List<Task> history;
+    LinkedList history;
+    HashMap<Integer, Node> linkToTaskInHistory;
     InMemoryHistoryManager() {
-        history = new ArrayList<Task>();
+        history = new LinkedList();
+        linkToTaskInHistory = new HashMap<>();
+
     }
     @Override
     public void add(Task task) {
-        history.add(task);
+        this.remove(task.id);
+        history.linkLast(task);
+        linkToTaskInHistory.put(task.getId(), history.getTail());
     }
 
     @Override
     public void remove(int id) {
-        history.remove(id);
+        Node node = linkToTaskInHistory.get(id);
+        if (node != null) {
+            history.removeNode(node);
+        }
+
     }
 
     @Override
     public List<Task> getHistory() {
-        return history;
+        return history.getTasks();
     }
 
 }
