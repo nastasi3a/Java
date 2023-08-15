@@ -2,16 +2,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InMemoryTaskManager implements TaskManager {
-
-    static InMemoryHistoryManager history = new InMemoryHistoryManager();
+    HistoryManager history;
     private int availableId;
     private final HashMap<Integer, Task> tasks;
     private final HashMap<Integer, Epic> epics;
 
-    InMemoryTaskManager() {
+    InMemoryTaskManager(HistoryManager history) {
         availableId = 0;
         tasks = new HashMap<>();
         epics = new HashMap<>();
+        this.history = history;
     }
 
     @Override

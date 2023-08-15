@@ -22,12 +22,11 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (node != null) {
             history.removeNode(node);
         }
-
     }
 
     @Override
     public List<Task> getHistory() {
-        return history.getTasks();
+        return this.history.getTasks();
     }
 
 }

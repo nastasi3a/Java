@@ -32,6 +32,7 @@ public class LinkedList {
             arrayListOfTasks.add(node.getData());
             node = node.next;
         } while (node.next != null);
+        arrayListOfTasks.add(node.getData());
         return arrayListOfTasks;
     }
 

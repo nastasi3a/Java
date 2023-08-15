@@ -1,7 +1,8 @@
 public class Main {
     public static void main(String[] args) {
-        InMemoryTaskManager inMemoryTaskManager = new InMemoryTaskManager();
         HistoryManager historyManager = Managers.getDefaultHistory();
+        InMemoryTaskManager inMemoryTaskManager = new InMemoryTaskManager(historyManager);
+
 
         inMemoryTaskManager.createEpic("Epic1", "This epic has 2 subtasks"); //id: 0
         inMemoryTaskManager.createEpic("Epic2", "This epic has 1 subtask"); //id: 1
@@ -21,8 +22,10 @@ public class Main {
         inMemoryTaskManager.removeById(4);
         inMemoryTaskManager.removeEpic(0);
         inMemoryTaskManager.getTask(2);
+        System.out.println(historyManager.getHistory());
         inMemoryTaskManager.getEpic(1);
-        inMemoryTaskManager.getEpic(0); //Solved: NullPointerException
+        System.out.println(historyManager.getHistory());
+        inMemoryTaskManager.getEpic(0);
         inMemoryTaskManager.getTask(3);
         System.out.println(historyManager.getHistory());
     }
