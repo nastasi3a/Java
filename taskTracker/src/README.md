@@ -1,5 +1,17 @@
-Task is the simplest element, and the base class for Epic and Subtask. A task has a name, a status, a unique id, and a description.
+Class Task is the simplest element, and the base class for Epic and Subtask. A task has a name, a status, a unique id, and a description.
 
-Epic extends Task. Epic contains an array of subtasks. The status of Epic is based on the statuses of its subtasks. 
+Class Epic extends class Task. Epic contains an array of subtasks. The status of Epic is based on the statuses of its subtasks. 
 
-Subtask extends Task. Subtask has additional attributes: the name of its Epic, the id of its Epic.
+Class Subtask extends class Task. Subtask has additional attributes: the name of its Epic, the id of its Epic.
+
+Interface TaskManager encompasses method declarations that delineate the program's main functionalities.
+
+Class InMemoryTaskManager implements the "TaskManager" interface.
+
+Interface HistoryManager encompasses method declarations that delineate the history's main functionalities.
+
+Class InMemoryHistoryManager implements the "HistoryManager" interface.
+
+Classes LinkedList and Node are my own implementation of linked list.
+
+Class Managers have static method to return object of TaskManager.
