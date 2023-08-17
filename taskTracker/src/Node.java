@@ -1,15 +1,15 @@
-public class Node {
-    Node prev;
-    private final Task task;
-    Node next;
+public class Node<T> {
+    Node<T> prev;
+    private final T data;
+    Node<T> next;
 
-    Node(Task task) {
-        this.task = task;
+    Node(T data) {
+        this.data = data;
         this.prev = null;
         this.next = null;
     }
 
-    Task getData() {
-        return task;
+    T getData() {
+        return data;
     }
 }

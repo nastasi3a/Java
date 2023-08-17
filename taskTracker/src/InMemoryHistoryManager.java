@@ -2,10 +2,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    LinkedList history;
-    HashMap<Integer, Node> linkToTaskInHistory;
+    LinkedList<Task> history;
+    HashMap<Integer, Node<Task>> linkToTaskInHistory;
     InMemoryHistoryManager() {
-        history = new LinkedList();
+        history = new LinkedList<>();
         linkToTaskInHistory = new HashMap<>();
 
     }
@@ -18,7 +18,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void remove(int id) {
-        Node node = linkToTaskInHistory.get(id);
+        Node<Task> node = linkToTaskInHistory.get(id);
         if (node != null) {
             history.removeNode(node);
         }
@@ -26,7 +26,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public List<Task> getHistory() {
-        return this.history.getTasks();
+        return this.history.getArrayListOfData();
     }
 
 }

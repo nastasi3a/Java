@@ -1,54 +1,54 @@
 import java.util.ArrayList;
 
-public class LinkedList {
+public class LinkedList<T> {
 
-    Node head;
-    Node tail;
+    Node<T> head;
+    Node<T> tail;
 
     LinkedList(){
         head = null;
         tail = null;
     }
 
-    void linkLast(Task task) {
+    void linkLast(T data) {
         if (head == null) {
-            head = new Node(task);
+            head = new Node<>(data);
             tail = head;
         } else {
-            Node node = new Node(task);
+            Node<T> node = new Node<>(data);
             tail.next = node;
             node.prev = tail;
             tail = node;
         }
     }
 
-    ArrayList<Task> getTasks() {
-        ArrayList<Task> arrayListOfTasks = new ArrayList<>();
+    ArrayList<T> getArrayListOfData() {
+        ArrayList<T> arrayListOfData = new ArrayList<>();
         if (head == null) {
             return null;
         }
-        Node node = head;
+        Node<T> node = head;
         do {
-            arrayListOfTasks.add(node.getData());
+            arrayListOfData.add(node.getData());
             node = node.next;
         } while (node.next != null);
-        arrayListOfTasks.add(node.getData());
-        return arrayListOfTasks;
+        arrayListOfData.add(node.getData());
+        return arrayListOfData;
     }
 
-    void removeNode(Node node) {
+    void removeNode(Node<T> node) {
         if (node == head && node == tail) {
             head = null;
             tail = null;
         } else {
-            Node prevNode = node.prev;
-            Node nextNode = node.next;
+            Node<T> prevNode = node.prev;
+            Node<T> nextNode = node.next;
             prevNode.next = nextNode;
             nextNode.prev = prevNode;
         }
     }
 
-    Node getTail() {
+    Node<T> getTail() {
         return tail;
     }
 }
