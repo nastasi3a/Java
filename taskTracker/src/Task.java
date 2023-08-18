@@ -2,7 +2,7 @@ public class Task {
 
     protected String name;
     protected String description;
-    protected final int id;
+    protected final Integer id;
     enum taskStatuses {
         NEW, IN_PROGRESS, DONE
     }
@@ -28,5 +28,18 @@ public class Task {
     @Override
     public String toString() {
         return "Task { Name: " + name + ", Description: " + description + ", Status: " + status + ", Id: " + id + " }";
+    }
+
+    @Override
+    public int hashCode(){
+        return id.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return id.equals(task.id);
     }
 }
