@@ -43,8 +43,16 @@ public class LinkedList<T> {
         } else {
             Node<T> prevNode = node.prev;
             Node<T> nextNode = node.next;
-            prevNode.next = nextNode;
-            nextNode.prev = prevNode;
+            if (prevNode == null) {
+                nextNode.prev = null;
+                head = nextNode;
+            } else if (nextNode == null) {
+                prevNode.next = null;
+                tail = prevNode;
+            } else {
+                prevNode.next = nextNode;
+                nextNode.prev = prevNode;
+            }
         }
     }
 

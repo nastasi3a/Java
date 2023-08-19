@@ -17,6 +17,7 @@ public class Main {
         inMemoryTaskManager.changeSubtaskStatus(0, 5, "DONE");
         inMemoryTaskManager.getEpic(0);
         inMemoryTaskManager.getEpic(1);
+        inMemoryTaskManager.getSubtask(4);
         System.out.println(historyManager.getHistory());
         inMemoryTaskManager.changeSubtaskStatus(1, 6, "IN_PROGRESS");
         inMemoryTaskManager.removeById(4);
@@ -27,6 +28,7 @@ public class Main {
         System.out.println(historyManager.getHistory());
         inMemoryTaskManager.getEpic(0);
         inMemoryTaskManager.getTask(3);
+        inMemoryTaskManager.getSubtask(4);
         System.out.println(historyManager.getHistory());
     }
 }
