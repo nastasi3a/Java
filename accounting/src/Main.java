@@ -89,7 +89,6 @@ public class Main {
                     String nameT = "", nameF = "";
                     if (!isMonth) {
                         System.out.println("You have not read monthly reports");
-                        break;
                     } else {
                         for (int i = 0; i < 12; i++) {
                             if (linesMonthReports[i] != null) {
@@ -124,7 +123,6 @@ public class Main {
 
                     if (!isYear) {
                         System.out.println("You have not read annual report");
-                        break;
                     } else {
                             if (linesYearReport[0] != null) {
                                 for (int i = 1; i < linesYearReport[0].length; i++) {
@@ -166,7 +164,7 @@ public class Main {
 
     private static String readFileContentsOrNull(String path)
     {
-        Path filePath = Paths.get("e:/Git/Java/accounting/src/reports/" + path + ".csv");
+        Path filePath = Paths.get(System.getProperty("user.dir")+"\\src\\reports\\" + path + ".csv");
         try {
             return Files.readString(filePath);
         } catch (IOException e) {
