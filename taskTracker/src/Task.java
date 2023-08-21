@@ -4,7 +4,12 @@ public class Task {
     protected String description;
     protected final Integer id;
     enum taskStatuses {
-        NEW, IN_PROGRESS, DONE
+        NEW, IN_PROGRESS, DONE;
+
+        @Override
+        public String toString() {
+            return super.toString().toLowerCase().replace('_', ' ');
+        }
     }
     protected taskStatuses status;
 
