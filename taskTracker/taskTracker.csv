@@ -1,0 +1,6 @@
+1;class Epic;Epic2;This epic has 1 subtask;in progress
+2;class Task;Task1;This is task nr 1;new
+3;class Task;Task2;This is task nr 2;new
+6;class Subtask;Subtask1;This is first subtask in epic 2;in progress;1
+
+2;1;3

@@ -1,4 +1,8 @@
-public abstract class FileBackedTaskManager extends InMemoryTaskManager {
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+
+public class FileBackedTaskManager extends InMemoryTaskManager {
 
     FileBackedTaskManager(HistoryManager history) {
         super(history);
@@ -18,8 +22,8 @@ public abstract class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void createSubtaskInEpic(int epicId, String name, String description, String epicName) {
-        super.createSubtaskInEpic(epicId, name, description, epicName);
+    public void createSubtaskInEpic(int epicId, String name, String description) {
+        super.createSubtaskInEpic(epicId, name, description);
         saveFile();
     }
 
@@ -59,7 +63,27 @@ public abstract class FileBackedTaskManager extends InMemoryTaskManager {
         saveFile();
     }
 
-    abstract void loadFile();
-    abstract void saveFile();
+    void loadFile(){
+        System.out.println("load");
+    }
+    void saveFile() {
+        try (Writer fileWriter = new FileWriter("taskTracker.csv", false)) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < availableId; i++) {
+                Task task = getById(i);
+                if (task != null) {
+                    stringBuilder.append(task.id).append(";").append(task.getClass()).append(";").append(task.name)
+                            .append(";").append(task.description).append(";").append(task.status);
+                    if (task.getClass() == Subtask.class) stringBuilder.append(";").append(((Subtask) task).epicId);
+                    stringBuilder.append("\n");
+                }
+            }
+            stringBuilder.append("\n");
+            stringBuilder.append(((InMemoryHistoryManager) history).getStringWithId());
+            fileWriter.write(stringBuilder.toString());
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 
 }

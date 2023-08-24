@@ -3,7 +3,7 @@ public interface TaskManager {
 
     void createEpic(String name, String description);
 
-    void createSubtaskInEpic(int epicId, String name, String description, String epicName);
+    void createSubtaskInEpic(int epicId, String name, String description);
 
     void getTask(final int id);
 

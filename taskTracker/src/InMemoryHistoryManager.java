@@ -29,4 +29,8 @@ public class InMemoryHistoryManager implements HistoryManager {
         return this.history.getArrayListOfData();
     }
 
+    protected String getStringWithId() {
+        return history.getIdString();
+    }
+
 }

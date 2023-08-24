@@ -31,8 +31,7 @@ public class LinkedList<T> {
         do {
             arrayListOfData.add(node.getData());
             node = node.next;
-        } while (node.next != null);
-        arrayListOfData.add(node.getData());
+        } while (node != null);
         return arrayListOfData;
     }
 
@@ -58,5 +57,20 @@ public class LinkedList<T> {
 
     Node<T> getTail() {
         return tail;
+    }
+
+    String getIdString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (head == null) {
+            return null;
+        }
+        Node<T> node = head;
+        do {
+            stringBuilder.append(((Task) node.getData()).id).append(";");
+            node = node.next;
+        } while (node!= null);
+        stringBuilder.deleteCharAt(stringBuilder.length()-1);
+        stringBuilder.append("\n");
+        return stringBuilder.toString();
     }
 }
