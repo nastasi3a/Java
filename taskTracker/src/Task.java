@@ -10,6 +10,9 @@ public class Task {
         public String toString() {
             return super.toString().toLowerCase().replace('_', ' ');
         }
+        public String superToString() {
+            return super.toString();
+        }
     }
     protected taskStatuses status;
 

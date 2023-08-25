@@ -63,6 +63,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         saveFile();
     }
 
+    //incomplete implementation
     void loadFile(){
         System.out.println("load");
     }
@@ -72,8 +73,12 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             for (int i = 0; i < availableId; i++) {
                 Task task = getById(i);
                 if (task != null) {
-                    stringBuilder.append(task.id).append(";").append(task.getClass()).append(";").append(task.name)
-                            .append(";").append(task.description).append(";").append(task.status);
+                    String className = null;
+                    if(task.getClass() == Subtask.class) className = "Subtask";
+                    else if(task.getClass() == Epic.class) className = "Epic";
+                    else if(task.getClass() == Task.class) className = "Task";
+                    stringBuilder.append(task.id).append(";").append(className).append(";").append(task.name)
+                            .append(";").append(task.description).append(";").append(task.status.superToString());
                     if (task.getClass() == Subtask.class) stringBuilder.append(";").append(((Subtask) task).epicId);
                     stringBuilder.append("\n");
                 }
