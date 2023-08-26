@@ -27,8 +27,10 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void createSubtaskInEpic(int epicId, String name, String description) {
         Epic epic = epics.get(epicId);
-        Subtask subtask = new Subtask(name, description, availableId++, epicId);
-        epic.addSubtask(subtask);
+        if (epic !=null) {
+            Subtask subtask = new Subtask(name, description, availableId++, epicId);
+            epic.addSubtask(subtask);
+        } else System.out.println("There is no epic with id " + epicId + ".");
     }
 
     @Override
@@ -66,18 +68,29 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void changeSubtaskStatus(int epicId, final int subtaskId, String newStatus) {
-        Epic epic = epics.get(epicId);
-        ArrayList<Subtask> subtasks = epic.getSubtasks();
-        for (Subtask subtask : subtasks) {
-            if (subtask.getId() == subtaskId) {
-                subtask.changeTaskStatus(newStatus);
-            }
+    public void changeTaskStatus(final int taskId, String newStatus) {
+        Task task = tasks.get(taskId);
+        if (task != null) {
+            task.changeTaskStatus(newStatus);
         }
     }
 
     @Override
+    public void changeSubtaskStatus(int epicId, final int subtaskId, String newStatus) {
+        Epic epic = epics.get(epicId);
+        if (epic != null) {
+            ArrayList<Subtask> subtasks = epic.getSubtasks();
+            for (Subtask subtask : subtasks) {
+                if (subtask.getId() == subtaskId) {
+                    subtask.changeTaskStatus(newStatus);
+                }
+            }
+        } else System.out.println("There is no epic with id " + epicId + ".");
+    }
+
+    @Override
     public void removeEpic(final int epicId) {
+        if (epics.get(epicId) == null) return;
         for (Subtask subtask: epics.get(epicId).getSubtasks()) {
             history.remove(subtask.getId());
         }
