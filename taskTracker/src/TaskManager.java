@@ -11,6 +11,8 @@ public interface TaskManager {
 
     void getEpic(final int id);
 
+    void changeTaskStatus(final int taskId, String newStatus);
+
     void changeSubtaskStatus(int epicId, final int subtaskId, String newStatus);
 
     void removeEpic(final int epicId);
