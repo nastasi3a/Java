@@ -1,6 +1,6 @@
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
@@ -63,10 +63,39 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         saveFile();
     }
 
-    //incomplete implementation
-    void loadFile(){
-        System.out.println("load");
+    void loadFile()  {
+        try {
+            String readTaskTrackerFile = Files.readString(Path.of("taskTracker.csv"));
+            String[] splitTaskTrackerFile = readTaskTrackerFile.split("\n");
+
+            //don't go through empty line and line with history
+            for (int i = 0; i < splitTaskTrackerFile.length-2; i++) {
+                String[] line = splitTaskTrackerFile[i].split(";");
+                availableId = Integer.parseInt(line[0]);
+                switch (line[1]) {
+                    case "Epic" -> createEpic(line[2], line[3]);
+                    case "Task" -> {
+                        createTask(line[2], line[3]);
+                        changeTaskStatus(Integer.parseInt(line[0]), line[4]);
+                    }
+                    case "Subtask" -> {
+                        createSubtaskInEpic(Integer.parseInt(line[5]), line[2], line[3]);
+                        changeSubtaskStatus(Integer.parseInt(line[5]), Integer.parseInt(line[0]), line[4]);
+                    }
+                    default -> System.out.println("Something went wrong");
+                }
+            }
+
+            String[] lineWithHistory = splitTaskTrackerFile[splitTaskTrackerFile.length-1].split(";");
+            for (String stringId :lineWithHistory) {
+                history.add(getById(Integer.parseInt(stringId)));
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
     void saveFile() {
         try (Writer fileWriter = new FileWriter("taskTracker.csv", false)) {
             StringBuilder stringBuilder = new StringBuilder();

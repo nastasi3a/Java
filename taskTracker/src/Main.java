@@ -3,7 +3,6 @@ public class Main {
         HistoryManager historyManager = Managers.getDefaultHistory();
         FileBackedTaskManager inMemoryTaskManager = new FileBackedTaskManager(historyManager);
 
-
         inMemoryTaskManager.createEpic("Epic1", "This epic has 2 subtasks"); //id: 0
         inMemoryTaskManager.createEpic("Epic2", "This epic has 1 subtask"); //id: 1
         inMemoryTaskManager.createTask("Task1", "This is task nr 1"); //id: 2
@@ -26,6 +25,8 @@ public class Main {
         inMemoryTaskManager.getEpic(0);
         inMemoryTaskManager.getTask(3);
         inMemoryTaskManager.getSubtask(4);
+        System.out.println(historyManager.getHistory());
+        inMemoryTaskManager.getTask(3);
         System.out.println(historyManager.getHistory());
     }
 }
