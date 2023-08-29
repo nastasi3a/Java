@@ -6,7 +6,9 @@ Class Subtask extends class Task. Subtask has additional attributes: the name of
 
 Interface TaskManager encompasses method declarations that delineate the program's main functionalities.
 
-Class InMemoryTaskManager implements the "TaskManager" interface.
+Class InMemoryTaskManager implements the "TaskManager" interface and stores all data in memory.
+
+Class FileBackedTaskManager extends InMemoryTaskManager with methods to load data from .csv file and to save data in .csv file.
 
 Interface HistoryManager encompasses method declarations that delineate the history's main functionalities.
 
