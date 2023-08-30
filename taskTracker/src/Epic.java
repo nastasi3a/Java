@@ -8,21 +8,24 @@ public class Epic extends Task {
     }
 
     ArrayList<Subtask> getSubtasks() {
+        checkEpicStatus();
         return subtasks;
     }
     void setSubtasks(ArrayList<Subtask> subtasks) {
         this.subtasks = subtasks;
+        checkEpicStatus();
     }
 
     void addSubtask(Subtask subtask) {
         subtasks.add(subtask);
+        checkEpicStatus();
     }
 
     void checkEpicStatus() {
         boolean newTaskStatus = true;
         boolean doneTaskStatus = true;
 
-        if (subtasks == null) {
+        if (subtasks.size()==0) {
             return;
         }
 
@@ -48,6 +51,7 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
+        checkEpicStatus();
         StringBuilder namesOfSubtasks = new StringBuilder();
         for (Subtask subtask : subtasks) namesOfSubtasks.append(subtask.name).append(" ");
         return "Epic { Name: " + name + ", Description: " + description + ", Status: " + status + ", Id: " + id
