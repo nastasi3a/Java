@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager {
     HistoryManager history;
@@ -34,37 +35,37 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void getTask(final int id) {
+    public Task getTask(final int id) {
         if (tasks.containsKey(id)) {
-            System.out.println(tasks.get(id));
+            Task task = tasks.get(id);
             history.add(tasks.get(id));
+            return task;
         } else System.out.println("There is no task with id " + id + ".");
+        return null;
     }
 
     @Override
-    public void getSubtask(final int id) {
+    public Subtask getSubtask(final int id) {
         boolean isFound = false;
         for (Epic epic : epics.values()) {
             ArrayList<Subtask> subtasks = epic.getSubtasks();
             for (Subtask subtask : subtasks) {
                 if (subtask.getId() == id) {
-                    System.out.println(subtask);
                     history.add(subtask);
-                    isFound = true;
-                    break;
+                    return subtask;
                 }
             }
-            if (isFound) break;
-        }
-        if (!isFound) System.out.println("There is no subtask with id " + id + ".");
+            System.out.println("There is no subtask with id " + id + ".");
+        } return null;
     }
 
     @Override
-    public void getEpic(final int id) {
+    public Epic getEpic(final int id) {
         if (epics.containsKey(id)) {
-            System.out.println(epics.get(id));
             history.add(epics.get(id));
+            return epics.get(id);
         } else System.out.println("There is no epic with id " + id + ".");
+        return null;
     }
 
     @Override
@@ -137,5 +138,9 @@ public class InMemoryTaskManager implements TaskManager {
             if (isFound) break;
         }
         return task;
+    }
+
+    public List<Task> getHistory() {
+        return history.getHistory();
     }
 }

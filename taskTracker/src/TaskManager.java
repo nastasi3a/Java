@@ -1,3 +1,5 @@
+import java.util.List;
+
 public interface TaskManager {
     void createTask(String name, String description);
 
@@ -5,11 +7,11 @@ public interface TaskManager {
 
     void createSubtaskInEpic(int epicId, String name, String description);
 
-    void getTask(final int id);
+    Task getTask(final int id);
 
-    void getSubtask(final int id);
+    Subtask getSubtask(final int id);
 
-    void getEpic(final int id);
+    Epic getEpic(final int id);
 
     void changeTaskStatus(final int taskId, String newStatus);
 
@@ -18,5 +20,7 @@ public interface TaskManager {
     void removeEpic(final int epicId);
 
     void removeById(final int id);
+
+    public List<Task> getHistory();
 
 }
