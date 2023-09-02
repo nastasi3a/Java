@@ -3,9 +3,13 @@ import java.util.List;
 public interface TaskManager {
     void createTask(String name, String description);
 
-    void createEpic(String name, String description);
+    void addTask(Task task);
 
-    void createSubtaskInEpic(int epicId, String name, String description);
+    void createEpic(String name, String description);
+    void addEpic(Epic epic);
+
+    void createSubtask(int epicId, String name, String description);
+    void addSubtask(Subtask subtask);
 
     Task getTask(final int id);
 

@@ -21,17 +21,58 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
+    public void addTask(Task task) {
+        if (task.id<availableId) {
+            System.out.println("this id is taken. creating the same task with another id");
+            Task newTask = new Task(task.name, task.description, availableId);
+            tasks.put(availableId++, newTask);
+        } else {
+            tasks.put(task.id, task);
+            availableId = task.id + 1;
+        }
+    }
+
+    @Override
     public void createEpic(String name, String description) {
         epics.put(availableId, new Epic(name, description, availableId++));
     }
 
+    @Override public void addEpic(Epic epic) {
+        if (epic.id<availableId) {
+            System.out.println("this id is taken. creating the same epic with another id");
+            Epic newEpic = new Epic(epic.name, epic.description, availableId);
+            newEpic.setSubtasks(epic.getSubtasks());
+            epics.put(availableId++, newEpic);
+        } else {
+            tasks.put(epic.id, epic);
+            availableId = epic.id + 1;
+        }
+    }
+
     @Override
-    public void createSubtaskInEpic(int epicId, String name, String description) {
+    public void createSubtask(int epicId, String name, String description) {
         Epic epic = epics.get(epicId);
         if (epic !=null) {
             Subtask subtask = new Subtask(name, description, availableId++, epicId);
             epic.addSubtask(subtask);
         } else System.out.println("There is no epic with id " + epicId + ".");
+    }
+
+    @Override
+    public void addSubtask(Subtask subtask) {
+        if(!epics.containsKey(subtask.epicId))
+            System.out.println("No epic with this id");
+        else {
+            if (subtask.id<availableId) {
+                System.out.println("this id is taken. creating the same subtask with another id");
+                Subtask newSubtask = new Subtask(subtask.name, subtask.description, availableId++, subtask.epicId);
+                epics.get(subtask.epicId).addSubtask(newSubtask);
+            } else {
+                epics.get(subtask.epicId).addSubtask(subtask);
+                availableId = subtask.id + 1;
+            }
+        }
+
     }
 
     @Override

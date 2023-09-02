@@ -22,8 +22,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void createSubtaskInEpic(int epicId, String name, String description) {
-        super.createSubtaskInEpic(epicId, name, description);
+    public void createSubtask(int epicId, String name, String description) {
+        super.createSubtask(epicId, name, description);
         saveFile();
     }
 
@@ -66,6 +66,24 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         saveFile();
     }
 
+    @Override
+    public void addTask(Task task) {
+        super.addTask(task);
+        saveFile();
+    }
+
+    @Override
+    public void addEpic(Epic epic) {
+        super.addEpic(epic);
+        saveFile();
+    }
+
+    @Override
+    public void addSubtask(Subtask subtask) {
+        super.addSubtask(subtask);
+        saveFile();
+    }
+
     void loadFile()  {
         try {
             String readTaskTrackerFile = Files.readString(Path.of("taskTracker.csv"));
@@ -82,7 +100,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                         changeTaskStatus(Integer.parseInt(line[0]), line[4]);
                     }
                     case "Subtask" -> {
-                        createSubtaskInEpic(Integer.parseInt(line[5]), line[2], line[3]);
+                        this.createSubtask(Integer.parseInt(line[5]), line[2], line[3]);
                         changeSubtaskStatus(Integer.parseInt(line[5]), Integer.parseInt(line[0]), line[4]);
                     }
                     default -> System.out.println("Something went wrong");
@@ -90,9 +108,10 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             }
 
             String[] lineWithHistory = splitTaskTrackerFile[splitTaskTrackerFile.length-1].split(";");
-            for (String stringId :lineWithHistory) {
-                history.add(getById(Integer.parseInt(stringId)));
-            }
+            if (!lineWithHistory[0].equals(""))
+                for (String stringId : lineWithHistory) {
+                    history.add(getById(Integer.parseInt(stringId)));
+                }
 
         } catch (IOException e) {
             e.printStackTrace();
