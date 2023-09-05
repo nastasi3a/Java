@@ -33,6 +33,20 @@ public class Task {
         return id;
     }
 
+    public static String toString(Task task) {
+        StringBuilder stringBuilder = new StringBuilder();
+        String className = null;
+        if(task.getClass() == Subtask.class) className = "Subtask";
+        else if(task.getClass() == Epic.class) className = "Epic";
+        else if(task.getClass() == Task.class) className = "Task";
+        stringBuilder.append(task.id).append(";").append(className).append(";").append(task.name)
+                .append(";").append(task.description).append(";").append(task.status.superToString());
+        if (task.getClass() == Subtask.class) stringBuilder.append(";").append(((Subtask) task).epicId);
+        stringBuilder.append("\n");
+
+        return stringBuilder.toString();
+    }
+
     @Override
     public String toString() {
         return "Task { Name: " + name + ", Description: " + description + ", Status: " + status + ", Id: " + id + " }";
