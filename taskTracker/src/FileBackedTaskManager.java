@@ -91,20 +91,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
             //don't go through empty line and line with history
             for (int i = 0; i < splitTaskTrackerFile.length-2; i++) {
-                String[] line = splitTaskTrackerFile[i].split(";");
-                availableId = Integer.parseInt(line[0]);
-                switch (line[1]) {
-                    case "Epic" -> createEpic(line[2], line[3]);
-                    case "Task" -> {
-                        createTask(line[2], line[3]);
-                        changeTaskStatus(Integer.parseInt(line[0]), line[4]);
-                    }
-                    case "Subtask" -> {
-                        this.createSubtask(Integer.parseInt(line[5]), line[2], line[3]);
-                        changeSubtaskStatus(Integer.parseInt(line[5]), Integer.parseInt(line[0]), line[4]);
-                    }
-                    default -> System.out.println("Something went wrong");
-                }
+                createTaskFromString(splitTaskTrackerFile[i]);
+
             }
 
             String[] lineWithHistory = splitTaskTrackerFile[splitTaskTrackerFile.length-1].split(";");
@@ -115,6 +103,24 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    void createTaskFromString(String taskString) {
+        String[] line = taskString.split(";");
+        availableId = Integer.parseInt(line[0]);
+        switch (line[1]) {
+            case "Epic" -> createEpic(line[2], line[3]);
+            case "Task" -> {
+                createTask(line[2], line[3]);
+                changeTaskStatus(Integer.parseInt(line[0]), line[4]);
+            }
+            case "Subtask" -> {
+                this.createSubtask(Integer.parseInt(line[5]), line[2], line[3]);
+                changeSubtaskStatus(Integer.parseInt(line[5]), Integer.parseInt(line[0]), line[4]);
+            }
+            default ->
+                System.out.println("Something went wrong");
         }
     }
 
