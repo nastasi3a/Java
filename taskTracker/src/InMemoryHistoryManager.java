@@ -2,8 +2,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    LinkedList<Task> history;
-    HashMap<Integer, Node<Task>> linkToTaskInHistory;
+    protected LinkedList<Task> history;
+    protected HashMap<Integer, Node<Task>> linkToTaskInHistory;
     InMemoryHistoryManager() {
         history = new LinkedList<>();
         linkToTaskInHistory = new HashMap<>();

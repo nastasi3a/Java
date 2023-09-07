@@ -87,7 +87,6 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Subtask getSubtask(final int id) {
-        boolean isFound = false;
         for (Epic epic : epics.values()) {
             ArrayList<Subtask> subtasks = epic.getSubtasks();
             for (Subtask subtask : subtasks) {
@@ -183,5 +182,9 @@ public class InMemoryTaskManager implements TaskManager {
 
     public List<Task> getHistory() {
         return history.getHistory();
+    }
+
+    static String toString(HistoryManager history) {
+        return ((InMemoryHistoryManager) history).getStringWithId();
     }
 }

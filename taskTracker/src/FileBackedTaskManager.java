@@ -134,7 +134,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                 }
             }
             stringBuilder.append("\n");
-            stringBuilder.append(((InMemoryHistoryManager) history).getStringWithId());
+            stringBuilder.append(toString(history));
             fileWriter.write(stringBuilder.toString());
         } catch (IOException e){
             e.printStackTrace();
