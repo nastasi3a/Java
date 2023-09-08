@@ -1,6 +1,7 @@
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
@@ -90,16 +91,14 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             String[] splitTaskTrackerFile = readTaskTrackerFile.split("\n");
 
             //don't go through empty line and line with history
-            for (int i = 0; i < splitTaskTrackerFile.length-2; i++) {
+            for (int i = 0; i < splitTaskTrackerFile.length-2; i++)
                 createTaskFromString(splitTaskTrackerFile[i]);
 
+            List<Integer> list = fromString(splitTaskTrackerFile[splitTaskTrackerFile.length-1]);
+            if (list != null) {
+                for (int id : list)
+                    history.add(getById(id));
             }
-
-            String[] lineWithHistory = splitTaskTrackerFile[splitTaskTrackerFile.length-1].split(";");
-            if (!lineWithHistory[0].equals(""))
-                for (String stringId : lineWithHistory) {
-                    history.add(getById(Integer.parseInt(stringId)));
-                }
 
         } catch (IOException e) {
             e.printStackTrace();

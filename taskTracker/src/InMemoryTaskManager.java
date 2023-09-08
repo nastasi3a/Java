@@ -187,4 +187,19 @@ public class InMemoryTaskManager implements TaskManager {
     static String toString(HistoryManager history) {
         return ((InMemoryHistoryManager) history).getStringWithId();
     }
+
+    static List<Integer> fromString(String value) {
+        if (value == null || value.equals("") || value.equals("null")) return null;
+        List<Integer> list = new ArrayList<>();
+        String[] arrayOfStringNumbers = value.split(";");
+        for (String stringNumber : arrayOfStringNumbers) {
+            try {
+                list.add(Integer.parseInt(stringNumber));
+            } catch (Exception e) {
+                return null;
+            }
+        }
+        return list;
+    }
+
 }
