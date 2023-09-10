@@ -2,6 +2,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
 
@@ -29,8 +30,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     }
 
     @Override
-    public Task getTask(int id) {
-        Task task = super.getTask(id);
+    public Optional<Task> getTask(int id) {
+        Optional<Task> task = super.getTask(id);
         saveFile();
         return task;
     }

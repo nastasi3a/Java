@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 public class InMemoryTaskManager implements TaskManager {
     HistoryManager history;
@@ -76,13 +77,13 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Task getTask(final int id) {
+    public Optional<Task> getTask(final int id) {
         if (tasks.containsKey(id)) {
             Task task = tasks.get(id);
             history.add(tasks.get(id));
-            return task;
+            return Optional.of(task);
         } else System.out.println("There is no task with id " + id + ".");
-        return null;
+        return Optional.empty();
     }
 
     @Override

@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Optional;
 
 public interface TaskManager {
     void createTask(String name, String description);
@@ -13,7 +14,7 @@ public interface TaskManager {
 
     void addSubtask(Subtask subtask);
 
-    Task getTask(final int id);
+    Optional<Task> getTask(final int id);
 
     Subtask getSubtask(final int id);
 
