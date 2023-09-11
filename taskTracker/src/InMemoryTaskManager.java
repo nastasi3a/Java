@@ -87,17 +87,17 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Subtask getSubtask(final int id) {
+    public Optional<Subtask> getSubtask(final int id) {
         for (Epic epic : epics.values()) {
             ArrayList<Subtask> subtasks = epic.getSubtasks();
             for (Subtask subtask : subtasks) {
                 if (subtask.getId() == id) {
                     history.add(subtask);
-                    return subtask;
+                    return Optional.of(subtask);
                 }
             }
             System.out.println("There is no subtask with id " + id + ".");
-        } return null;
+        } return Optional.empty();
     }
 
     @Override

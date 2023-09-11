@@ -16,7 +16,7 @@ public interface TaskManager {
 
     Optional<Task> getTask(final int id);
 
-    Subtask getSubtask(final int id);
+    Optional <Subtask> getSubtask(final int id);
 
     Epic getEpic(final int id);
 
