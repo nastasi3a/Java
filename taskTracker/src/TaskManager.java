@@ -18,7 +18,7 @@ public interface TaskManager {
 
     Optional <Subtask> getSubtask(final int id);
 
-    Epic getEpic(final int id);
+    Optional <Epic> getEpic(final int id);
 
     void changeTaskStatus(final int taskId, String newStatus);
 

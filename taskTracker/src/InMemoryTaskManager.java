@@ -101,12 +101,12 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Epic getEpic(final int id) {
+    public Optional <Epic> getEpic(final int id) {
         if (epics.containsKey(id)) {
             history.add(epics.get(id));
-            return epics.get(id);
+            return Optional.of(epics.get(id));
         } else System.out.println("There is no epic with id " + id + ".");
-        return null;
+        return Optional.empty();
     }
 
     @Override
