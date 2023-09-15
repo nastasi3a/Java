@@ -19,3 +19,5 @@ Classes LinkedList and Node are my own implementation of linked list.
 Class Managers have static method to return object of TaskManager.
 
 EpicTest contains tests for Epic methods.
+
+TaskManagerTest contains tests for TaskManager methods.
