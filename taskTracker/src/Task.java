@@ -1,8 +1,13 @@
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 public class Task {
 
     protected String name;
     protected String description;
     protected final Integer id;
+    LocalDateTime startTime;
+    Duration duration;
     enum taskStatuses {
         NEW, IN_PROGRESS, DONE;
 
@@ -45,6 +50,10 @@ public class Task {
         stringBuilder.append("\n");
 
         return stringBuilder.toString();
+    }
+
+    LocalDateTime getEndTime() {
+        return startTime.plus(duration);
     }
 
     @Override
