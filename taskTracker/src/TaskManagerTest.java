@@ -27,4 +27,13 @@ class TaskManagerTest <T extends TaskManager>{
         savedTask.ifPresent(value -> assertEquals(value, task, "Tasks do not match"));
     }
 
+    @Test
+    void createEpicTest() {
+        taskManager.createEpic("Epic1", "Simple description");
+        Optional<Epic> epic = taskManager.getEpic(0);
+
+        assertEquals(taskManager.getEpic(0), epic, "Epics do not match");
+        assertNotNull(taskManager.getEpic(0), "Epic was not found");
+    }
+
 }
