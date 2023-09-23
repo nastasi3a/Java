@@ -56,5 +56,21 @@ class TaskManagerTest <T extends TaskManager>{
         assertNotNull(taskManager.getSubtask(1), "Subtask was not found");
     }
 
+    @Test
+    void addSubtaskTest() {
+        Epic epic = new Epic("Epic1", "Simple description", 0);
+        Subtask subtask = new Subtask("Subtask1", "Simple description",1, 0);
+        taskManager.addEpic(epic); //id: 0
+        taskManager.addSubtask(subtask);
+        final Optional<Subtask> savedSubtask = taskManager.getSubtask(1);
+
+        assertNotNull(savedSubtask, "Epic was not found");
+        savedSubtask.ifPresent(value -> assertEquals(value, subtask, "Epics do not match"));
+        System.out.println(savedSubtask);
+        Subtask savedSubtaskGotten = savedSubtask.get();
+        savedSubtaskGotten.status = Task.taskStatuses.IN_PROGRESS;
+        System.out.println(taskManager.getEpic(0));
+    }
+
 
 }
