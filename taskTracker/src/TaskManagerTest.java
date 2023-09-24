@@ -72,5 +72,19 @@ class TaskManagerTest <T extends TaskManager>{
         System.out.println(taskManager.getEpic(0));
     }
 
+    @Test
+    void getTaskTest() {
+        taskManager.createTask("Task", "Simple description"); //id: 0
+        Optional<Task> task = taskManager.getTask(0);
+        assertEquals(taskManager.getTask(0), task, "Tasks do not match");
+        assertNotNull(taskManager.getTask(0), "Task was not found");
+
+        Task task1 = new Task("Task1", "Simple description", 1);
+        taskManager.addTask(task1); //id: 1
+        final Optional<Task> savedTask = taskManager.getTask(1);
+        assertNotNull(savedTask, "Task was not found");
+        savedTask.ifPresent(value -> assertEquals(value, task1, "Tasks do not match"));
+    }
+
 
 }
