@@ -84,6 +84,8 @@ class TaskManagerTest <T extends TaskManager>{
         final Optional<Task> savedTask = taskManager.getTask(1);
         assertNotNull(savedTask, "Task was not found");
         savedTask.ifPresent(value -> assertEquals(value, task1, "Tasks do not match"));
+
+        assertEquals(taskManager.getTask(2), Optional.empty());
     }
 
     @Test
