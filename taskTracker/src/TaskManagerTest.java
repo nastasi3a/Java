@@ -101,6 +101,8 @@ class TaskManagerTest <T extends TaskManager>{
         final Optional<Subtask> savedSubtask = taskManager.getSubtask(2);
         assertNotNull(savedSubtask, "Subtask was not found");
         savedSubtask.ifPresent(value -> assertEquals(value, subtask2, "Subtasks do not match"));
+        
+        assertEquals(taskManager.getSubtask(8), Optional.empty());
     }
 
 
