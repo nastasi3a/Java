@@ -122,5 +122,22 @@ class TaskManagerTest <T extends TaskManager>{
         assertEquals(taskManager.getEpic(1), Optional.empty());
     }
 
+    @Test
+    void changeTaskStatusTest() {
+        taskManager.createTask("Task1", "Simple description"); //id: 0
+        Task task1 = taskManager.getTask(0).get();
+        Task task2 = new Task("Task2", "Simple description", 1); //id: 1
+        taskManager.addTask(task2);
+
+        taskManager.changeTaskStatus(0, "DOME");
+        assertEquals(taskManager.getTask(0).get(), task1);
+
+        taskManager.changeTaskStatus(1, "IN_PROGRESS");
+        assertEquals(taskManager.getTask(1).get(), task2);
+
+        taskManager.removeById(1);
+        taskManager.changeTaskStatus(1, "DONE");
+    }
+
 
 }
