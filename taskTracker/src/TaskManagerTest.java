@@ -139,5 +139,21 @@ class TaskManagerTest <T extends TaskManager>{
         taskManager.changeTaskStatus(1, "DONE");
     }
 
+    @Test
+    void changeSubtaskStatusTest() {
+        taskManager.createEpic("Epic1", "Simple description"); //id: 0
+        taskManager.createSubtask(0, "Subtask1", "Simple description"); //id: 1
+        taskManager.changeSubtaskStatus(0, 1, "DONE");
+        assertNotNull(taskManager.getSubtask(1), "Subtask was not found");
+
+        Subtask subtask = new Subtask("Subtask", "Simple description",2, 0); //id: 2
+        taskManager.addSubtask(subtask);
+        taskManager.changeSubtaskStatus(0, 2, "IN_PROGRESS");
+        assertEquals(subtask, taskManager.getSubtask(2).get(), "Subtasks do not match");
+
+        taskManager.changeSubtaskStatus(1, 2, "DONE");
+        taskManager.changeSubtaskStatus(0, 9, "DONE");
+    }
+
 
 }
