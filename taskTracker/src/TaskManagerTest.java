@@ -155,5 +155,14 @@ class TaskManagerTest <T extends TaskManager>{
         taskManager.changeSubtaskStatus(0, 9, "DONE");
     }
 
+    @Test
+    void removeEpicTest() {
+        taskManager.createEpic("Epic1", "Simple description"); //id: 0
+        taskManager.createSubtask(0, "Subtask1", "Simple description"); //id: 1
+        taskManager.removeEpic(0);
+        assertEquals(taskManager.getSubtask(1), Optional.empty());
+        assertEquals(taskManager.getEpic(0), Optional.empty());
+
+    }
 
 }
